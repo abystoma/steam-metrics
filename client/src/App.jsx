@@ -1,20 +1,20 @@
 import './App.css';
-import SearchBar from './components/SearchBar';
-import SteamUsersOnline from './components/SteamUsersOnline';
-import logo_steam from './components/logo_steam.png';
-
+import Home from './pages/Home';
+import Game from "./pages/Game";
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+//for getting a specific game: https://store.steampowered.com/api/appdetails?appids=10
 const App = () => {
-  return (
-    <div className='bg-[#0c1820] h-screen'>
-      <nav>
-        <img className='w-40' src={logo_steam} alt='logo' />
-      </nav>
 
-      <SearchBar />
-      <SteamUsersOnline/>
+  return (  
+    <div>
+      <BrowserRouter>
+        <Routes>
+          <Route path='/' element={<Home/>}/>
+          <Route path='/game/:appid' element={<Game/>}/>
+        </Routes>
+      </BrowserRouter>
     </div>
   );
-};
-
+}
+ 
 export default App;
-

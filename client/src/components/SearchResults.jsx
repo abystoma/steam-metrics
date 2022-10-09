@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const SearchResults = ({ userInput }) => {
   const [steamGameData, setSteamGameData] = useState({});
+  const navigate = useNavigate();
 
   useEffect(() => {
     getList();
@@ -11,15 +13,31 @@ const SearchResults = ({ userInput }) => {
     fetch('/getSteamGameList')
       .then((res) => res.json())
       .then((data) => {
-        setSteamGameData(data);
+        setSteamGameData(data.applist.apps);
       })
       .catch((e) => console.log(e));
   };
 
   return (
-    <div>
-      {/* {steamGameData.map().filter(value => value !== userInput)} */}
-    </div>
+    <ul>
+      {userInput &&
+        steamGameData &&
+        steamGameData
+          .filter((game) => game.name.toLowerCase() === userInput.toLowerCase())
+          .slice(0, 10)
+          .map((game) => (
+            <li
+              onClick={(e) => {
+                navigate(`/game/${e.target.value}`);
+              }}
+              className='cursor-pointer text-white'
+              value={game.appid}
+              key={game.appid}
+            >
+              {game.name}
+            </li>
+          ))}
+    </ul>
   );
 };
 
