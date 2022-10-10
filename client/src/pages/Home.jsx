@@ -15,9 +15,8 @@ const Home = () => {
         />
         <SearchBar />
       </nav>
-      <TopGames />
-
-      <SteamUsersOnline />
+      <SteamUsersOnline/>
+      <TopGames/>
     </div>
   );
 };

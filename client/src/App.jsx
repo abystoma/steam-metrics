@@ -1,6 +1,6 @@
 import './App.css';
 import Home from './pages/Home';
-import Game from "./pages/Game";
+import Store from "./pages/Store";
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 //for getting a specific game: https://store.steampowered.com/api/appdetails?appids=10
 const App = () => {
@@ -10,7 +10,7 @@ const App = () => {
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<Home/>}/>
-          <Route path='/game/:appid' element={<Game/>}/>
+          <Route path='/game/:appid' element={<Store/>}/>
         </Routes>
       </BrowserRouter>
     </div>

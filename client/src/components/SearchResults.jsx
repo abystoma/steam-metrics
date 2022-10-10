@@ -6,17 +6,13 @@ const SearchResults = ({ userInput }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    getList();
-  }, []);
-
-  const getList = () => {
     fetch('/getSteamGameList')
       .then((res) => res.json())
       .then((data) => {
         setSteamGameData(data.applist.apps);
       })
       .catch((e) => console.log(e));
-  };
+  }, []);
 
   return (
     <ul>
