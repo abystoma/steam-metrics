@@ -1,14 +1,16 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const TopGames = () => {
-  // https://store.steampowered.com/stats/Steam-Game-and-Player-Statistics
   const [gameData, setGameData] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch('/getTopGames')
       .then((res) => res.json())
       .then((data) => setGameData(data));
   }, []);
+
   return (
     <div>
       <>
@@ -24,9 +26,14 @@ const TopGames = () => {
           <div>
             <img
               src={`https://cdn.cloudflare.steamstatic.com/steam/apps/${game.id}/header.jpg`}
-              alt='banner'
             />
-            <p>{game.name}</p>
+            <p
+              onClick={(e) => {
+                navigate(`/game/${game.id}`);
+              }}
+            >
+              {game.name}
+            </p>
           </div>
           <div>
             <p>{game.current}</p>

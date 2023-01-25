@@ -1,22 +1,13 @@
-import SearchResults from '../components/SearchResults';
-import SearchBar from '../components/SearchBar';
+import NavBar from '../components/NavBar';
 import SteamUsersOnline from '../components/SteamUsersOnline';
 import TopGames from '../components/TopGames';
 
 const Home = () => {
   return (
     <div className='bg-[#0c1820] h-screen'>
+      <NavBar />
       <SteamUsersOnline />
-      <nav>
-        <img
-          className='w-40'
-          src={`${process.env.PUBLIC_URL}/logo_steam.png`}
-          alt='banner'
-        />
-        <SearchBar />
-      </nav>
-      <SteamUsersOnline/>
-      <TopGames/>
+      <TopGames />
     </div>
   );
 };
