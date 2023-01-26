@@ -5,7 +5,7 @@ const ExtraGameInfo = ({ gameData }) => {
         <h1>About</h1>
         <p>{gameData.short_description}</p>
       </div>
-      <div />
+
       <div>
         <div>
           Features:{' '}
@@ -13,14 +13,14 @@ const ExtraGameInfo = ({ gameData }) => {
             <span key={i}>{category.description}</span>
           ))}
         </div>
+        <div>
+          App ID: <span>{gameData.steam_appid}</span>
+        </div>
         {gameData.website && (
           <div>
             Website: <span>{gameData.website}</span>
           </div>
         )}
-        <div>
-          App ID: <span>{gameData.steam_appid}</span>
-        </div>
       </div>
     </div>
   );

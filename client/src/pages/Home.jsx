@@ -4,7 +4,7 @@ import TopGames from '../components/TopGames';
 
 const Home = () => {
   return (
-    <div className=''>
+    <div>
       <NavBar />
       <SteamUsersOnline />
       <TopGames />

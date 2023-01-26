@@ -3,7 +3,7 @@ import SearchBar from './SearchBar';
 const NavBar = () => {
   return (
     <nav>
-      <img className='w-40' src={`${process.env.PUBLIC_URL}/logo_steam.png`} />
+      <img className='w-40' src={'./public/logo_steam.png'} alt='logo' />
       <SearchBar />
     </nav>
   );

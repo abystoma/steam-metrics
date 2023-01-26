@@ -1,6 +1,6 @@
 import CategoryTag from './CategoryTag';
 
-const StoreHeader = ({ data }) => {
+const GameBanner = ({ data }) => {
   return (
     <div>
       <img
@@ -37,4 +37,4 @@ const StoreHeader = ({ data }) => {
   );
 };
 
-export default StoreHeader;
+export default GameBanner;
