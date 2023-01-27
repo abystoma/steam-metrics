@@ -11,6 +11,7 @@ app.get('/getSteamUsers', async (req, res) => {
     args: ['--no-sandbox', '--disable-setuid-sandbox'],
   });
   const page = await browser.newPage();
+  await page.setDefaultNavigationTimeout(0);
   await page.goto('https://store.steampowered.com/about/');
 
   let playerCount = await page.$eval('.online_stats', (el) => el.innerText);
@@ -24,6 +25,7 @@ app.get('/getTopGames', async (req, res) => {
     args: ['--no-sandbox', '--disable-setuid-sandbox'],
   });
   const page = await browser.newPage();
+  await page.setDefaultNavigationTimeout(0);
   await page.goto('https://steamcharts.com/');
 
   const gameIds = await page.$$eval(
@@ -77,6 +79,7 @@ app.get('/getGamePlayerCount/:id', async (req, res) => {
     args: ['--no-sandbox', '--disable-setuid-sandbox'],
   });
   const page = await browser.newPage();
+  await page.setDefaultNavigationTimeout(0);
   await page.goto(`https://steamcharts.com/app/${req.params.id}`);
 
   const playerCount = await page.$$eval('#app-heading > div > span', (el) =>
@@ -94,6 +97,7 @@ app.get('/getRecords', async (req, res) => {
     args: ['--no-sandbox', '--disable-setuid-sandbox'],
   });
   const page = await browser.newPage();
+  await page.setDefaultNavigationTimeout(0);
   await page.goto('https://steamcharts.com/');
 
   const game = await page.$$eval('#toppeaks > tbody > tr', (e) =>
@@ -138,6 +142,7 @@ const fetchAPI = async (URL) => {
   const data = await response.json();
   return data;
 };
+
 const port = 5000;
 app.listen(port, () => {
   console.log(`App running on port ${port}..`);
