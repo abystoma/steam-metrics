@@ -2,11 +2,12 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import NavBar from '../components/NavBar';
 import GameInfo from '../components/GameInfo';
+import Carousel from '../components/Carousel';
 import GameBanner from '../components/GameBanner';
 
 const Store = () => {
   const [steamGameData, setSteamGameData] = useState();
-  const [gamePlayerData, setGamePlayerData] = useState();
+  const [playerCounts, setPlayerCounts] = useState();
   const { appid } = useParams();
 
   useEffect(() => {
@@ -26,17 +27,18 @@ const Store = () => {
   const getGamePlayerCount = () => {
     fetch(`/getGamePlayerCount/${appid}`)
       .then((res) => res.json())
-      .then((data) => setGamePlayerData(data))
+      .then((data) => setPlayerCounts(data))
       .catch((e) => console.log(e));
   };
 
   return (
     <>
-      {steamGameData && gamePlayerData && (
+      {steamGameData && playerCounts && (
         <div>
           <NavBar />
-          <GameBanner data={steamGameData} />
-          <GameInfo data={steamGameData} players={gamePlayerData} />
+          <GameBanner game={steamGameData} />
+          <GameInfo game={steamGameData} playerCount={playerCounts} />
+          <Carousel images={steamGameData.screenshots} />
         </div>
       )}
     </>

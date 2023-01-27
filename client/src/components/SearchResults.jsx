@@ -8,10 +8,7 @@ const SearchResults = ({ userInput }) => {
   useEffect(() => {
     fetch('/getSteamGameList')
       .then((res) => res.json())
-      .then((data) => {
-        setSteamGameData(data.applist.apps);
-      })
-      .catch((e) => console.log(e));
+      .then((data) => setSteamGameData(data.applist.apps));
   }, []);
 
   return (

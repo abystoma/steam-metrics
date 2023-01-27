@@ -1,13 +1,15 @@
 import NavBar from '../components/NavBar';
+import RecordContainer from '../components/RecordContainer';
 import SteamUsersOnline from '../components/SteamUsersOnline';
-import TopGames from '../components/TopGames';
+import TopGamesContainer from '../components/TopGamesContainer';
 
 const Home = () => {
   return (
     <div>
       <NavBar />
-      <SteamUsersOnline />
-      <TopGames />
+      {/* <SteamUsersOnline/> */}
+      {/* <TopGamesContainer/> */}
+      <RecordContainer />
     </div>
   );
 };
