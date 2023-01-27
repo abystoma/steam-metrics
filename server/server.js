@@ -129,4 +129,7 @@ const fetchAPI = async (URL) => {
   return data;
 };
 
-app.listen(5000);
+const port = 5000;
+app.listen(port, () => {
+  console.log(`App running on port ${port}..`);
+});

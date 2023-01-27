@@ -3,7 +3,7 @@ import Features from './Features';
 const GameInfo = ({ game, playerCount }) => {
   return (
     <div>
-      <div className='flex justify-around bg-component-bg rounded-xl my-10 text-white font-pop_semi text-5xl pb-5'>
+      <div className='flex justify-around bg-component-bg rounded-xl my-12 text-white font-pop_semi text-5xl pb-5'>
         <h1 className='text-green-txt'>
           <span className='text-lg'>Playing Now</span>
           <br />
@@ -21,7 +21,7 @@ const GameInfo = ({ game, playerCount }) => {
         </h1>
       </div>
 
-      <div className='flex mb-14'>
+      <div className='flex mb-14 bg-component-bg px-6 py-4 rounded-xl'>
         <div className='basis-[60%]'>
           <h1 className='font-pop_semi text-xl text-gray-alt-txt mb-1'>
             About

@@ -4,10 +4,16 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
+import 'swiper/css/free-mode';
 // import required modules
-import { Navigation, Pagination } from 'swiper';
+import { Pagination, FreeMode, Navigation } from 'swiper';
 
 const Carousel = ({ images }) => {
+  //If user clicks on image, show a full sized reference in new tab
+  const openInNewTab = (url) => {
+    window.open(url, '_blank', 'noopener,noreferrer');
+  };
+
   return (
     <div>
       <Swiper
@@ -15,11 +21,14 @@ const Carousel = ({ images }) => {
         slidesPerView={3}
         loop={true}
         spaceBetween={20}
-        modules={[Pagination, Navigation]}
+        modules={[FreeMode, Pagination, Navigation]}
       >
         {images.map((image) => (
-          <SwiperSlide key={image.id}>
-            <img src={image.path_full} />
+          <SwiperSlide
+            key={image.id}
+            onClick={() => openInNewTab(image.path_full)}
+          >
+            <img className='rounded-md cursor-pointer' src={image.path_full} />
           </SwiperSlide>
         ))}
       </Swiper>
