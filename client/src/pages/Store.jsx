@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import NavBar from '../components/NavBar';
-import GameInfo from '../components/GameInfo';
-import Carousel from '../components/Carousel';
+import GameInfo from '../components/Store/GameInfo';
+import Carousel from '../components/Store/Carousel';
 import Footer from '../components/Footer';
-import GameBanner from '../components/GameBanner';
+import GameBanner from '../components/Store/GameBanner';
 
 const Store = () => {
   const [steamGameData, setSteamGameData] = useState();
