@@ -6,7 +6,7 @@ const SearchResults = ({ userInput }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch('/getSteamGameList')
+    fetch('http://localhost:5000/getSteamGameList')
       .then((res) => res.json())
       .then((data) => setSteamGameData(data.applist.apps));
   }, []);

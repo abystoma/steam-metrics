@@ -7,7 +7,7 @@ const NavBar = () => {
     <nav className='flex items-center justify-between pt-4 mb-10'>
       <img
         onClick={() => navigate('/')}
-        className='w-40 cursor-pointer hover:scale-105'
+        className='w-36 md:w-40 cursor-pointer hover:scale-105'
         src='logo_steam.png'
         alt='logo'
       />

@@ -1,58 +1,62 @@
-const puppeteer = require('puppeteer');
 const express = require('express');
-const fetch = require('node-fetch');
 const app = express();
+const cors = require('cors');
+app.use(cors());
+
+const puppeteer = require('puppeteer');
+const fetch = require('node-fetch');
 
 app.get('/getSteamUsers', async (req, res) => {
-  const browser = await puppeteer.launch();
+  const browser = await puppeteer.launch({
+    args: ['--no-sandbox', '--disable-setuid-sandbox'],
+  });
   const page = await browser.newPage();
   await page.goto('https://store.steampowered.com/about/');
 
   let playerCount = await page.$eval('.online_stats', (el) => el.innerText);
-  let formatedCount = playerCount.split('\n');
 
   await browser.close();
-  res.json(formatedCount);
+  res.json(playerCount?.split('\n'));
 });
 
 app.get('/getTopGames', async (req, res) => {
-  const browser = await puppeteer.launch();
+  const browser = await puppeteer.launch({
+    args: ['--no-sandbox', '--disable-setuid-sandbox'],
+  });
   const page = await browser.newPage();
-  await page.goto(
-    'https://store.steampowered.com/stats/Steam-Game-and-Player-Statistics'
-  );
+  await page.goto('https://steamcharts.com/');
 
   const gameIds = await page.$$eval(
-    '#detailStats > table > tbody > tr > td:nth-child(4) > a',
+    '#top-games > tbody > tr > td.game-name.left > a',
     (el) =>
       el.map((td) => {
-        return td.getAttribute('href').split('/')[4];
+        return td.getAttribute('href').split('/')[2];
       })
   );
   const gameNames = await page.$$eval(
-    '#detailStats > table > tbody > tr > td:nth-child(4) > a',
+    '#top-games > tbody > tr > td.game-name.left > a',
     (el) =>
       el.map((td) => {
         return td.innerText;
       })
   );
   const currentPlayers = await page.$$eval(
-    '#detailStats > table > tbody > tr > td:nth-child(1) > span',
+    '#top-games > tbody > tr > td:nth-child(3)',
     (el) =>
       el.map((td) => {
         return td.innerText;
       })
   );
   const peakPlayers = await page.$$eval(
-    '#detailStats > table > tbody > tr > td:nth-child(2) > span',
+    '#top-games > tbody > tr > td.num.period-col.peak-concurrent',
     (el) =>
       el.map((td) => {
         return td.innerText;
       })
   );
-  await browser.close();
 
-  //Push each game and its corrisponding data into one object
+  console.log(gameIds, gameNames, currentPlayers, peakPlayers);
+
   let gameData = [];
 
   for (let i in gameIds) {
@@ -64,11 +68,14 @@ app.get('/getTopGames', async (req, res) => {
     };
     gameData.push(game);
   }
+  await browser.close();
   res.json(gameData);
 });
 
 app.get('/getGamePlayerCount/:id', async (req, res) => {
-  const browser = await puppeteer.launch();
+  const browser = await puppeteer.launch({
+    args: ['--no-sandbox', '--disable-setuid-sandbox'],
+  });
   const page = await browser.newPage();
   await page.goto(`https://steamcharts.com/app/${req.params.id}`);
 
@@ -77,12 +84,15 @@ app.get('/getGamePlayerCount/:id', async (req, res) => {
       return td.innerText;
     })
   );
+
   await browser.close();
   res.json(playerCount);
 });
 
 app.get('/getRecords', async (req, res) => {
-  const browser = await puppeteer.launch();
+  const browser = await puppeteer.launch({
+    args: ['--no-sandbox', '--disable-setuid-sandbox'],
+  });
   const page = await browser.newPage();
   await page.goto('https://steamcharts.com/');
 
@@ -111,7 +121,7 @@ app.get('/getRecords', async (req, res) => {
 
 app.get('/getSteamGameData/:id', async (req, res) => {
   const request = await fetchAPI(
-    `https://store.steampowered.com/api/appdetails?appids=${req.params.id}`
+    `https://store.steampowered.com/api/appdetails?appids=${req.params.id}&l=english`
   );
   res.json(request);
 });
@@ -128,7 +138,6 @@ const fetchAPI = async (URL) => {
   const data = await response.json();
   return data;
 };
-
 const port = 5000;
 app.listen(port, () => {
   console.log(`App running on port ${port}..`);
