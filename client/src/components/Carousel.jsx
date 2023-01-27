@@ -12,7 +12,7 @@ const Carousel = ({ images }) => {
     <div>
       <Swiper
         navigation={true}
-        slidesPerView={5}
+        slidesPerView={3}
         loop={true}
         spaceBetween={20}
         modules={[Pagination, Navigation]}
